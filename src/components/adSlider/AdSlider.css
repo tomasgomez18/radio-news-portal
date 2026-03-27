@@ -1,0 +1,38 @@
+.ad-slider-container {
+  width: 100%;
+  max-width: 100%; /* Permite que ocupe todo el ancho */
+  margin: 20px 0;
+  border-radius: 0; /* Quitamos los bordes redondeados para que se vea como un banner completo */
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ad-card {
+  position: relative;
+  width: 100%;
+  height: 120px; /* Altura reducida para que parezca un banner horizontal */
+  background-color: #f0f0f0;
+}
+
+.ad-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evita que la imagen se deforme */
+  display: block;
+}
+
+.ad-tagline {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+/* Personalización de puntos de paginación (Swiper) */
+.swiper-pagination-bullet-active {
+  background: #ff0000; /* Usa el color principal de tu radio */
+}
