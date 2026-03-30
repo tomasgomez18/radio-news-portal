@@ -3,19 +3,14 @@ import './AdminOverlay.css';
 
 const AdminOverlay = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState('news');
-  
-  // Listas de datos globales
   const [newsList, setNewsList] = useState([]);
   const [adsList, setAdsList] = useState([]);
   const [mediaList, setMediaList] = useState([]);
 
-  // Estados de formularios
   const [newsForm, setNewsForm] = useState({ id: null, title: '', category: 'Actualidad', imageUrl: '', fullBody: '' });
   const [adForm, setAdForm] = useState({ id: null, imageUrl: '', link: '' });
   const [seoForm, setSeoForm] = useState({ siteTitle: '', metaDescription: '', keywords: '' });
   const [imageInput, setImageInput] = useState('');
-
-  // Carga inicial de todo el LocalStorage
   useEffect(() => {
     const storedNews = JSON.parse(localStorage.getItem('radio_news')) || [];
     const storedAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
@@ -27,8 +22,6 @@ const AdminOverlay = ({ onClose }) => {
     setMediaList(storedMedia);
     setSeoForm(storedSEO);
   }, []);
-
-  // --- GESTIÓN DE NOTICIAS ---
   const handleSaveNews = () => {
     if (!newsForm.title || !newsForm.imageUrl || !newsForm.fullBody) return alert("Faltan campos obligatorios.");
     const updated = newsForm.id 
@@ -49,8 +42,6 @@ const AdminOverlay = ({ onClose }) => {
       setNewsList(filtered);
     }
   };
-
-  // --- GESTIÓN DE PUBLICIDAD ---
   const handleSaveAd = () => {
     if (!adForm.imageUrl) return alert("La URL de imagen es necesaria.");
     const updated = adForm.id 
@@ -63,14 +54,11 @@ const AdminOverlay = ({ onClose }) => {
     alert("Banner guardado.");
     window.location.reload();
   };
-
   const deleteAd = (id) => {
     const filtered = adsList.filter(a => a.id !== id);
     localStorage.setItem('radio_ads', JSON.stringify(filtered));
     setAdsList(filtered);
   };
-
-  // --- GESTIÓN DE IMÁGENES ---
   const handleAddImage = () => {
     if (!imageInput) return;
     const updated = [imageInput, ...mediaList];
@@ -78,14 +66,11 @@ const AdminOverlay = ({ onClose }) => {
     setMediaList(updated);
     setImageInput('');
   };
-
   const deleteImage = (index) => {
     const filtered = mediaList.filter((_, i) => i !== index);
     localStorage.setItem('radio_media', JSON.stringify(filtered));
     setMediaList(filtered);
   };
-
-  // --- GESTIÓN DE SEO ---
   const handleSaveSEO = () => {
     localStorage.setItem('radio_seo', JSON.stringify(seoForm));
     document.title = seoForm.siteTitle || "AudioWave";
@@ -172,7 +157,6 @@ const AdminOverlay = ({ onClose }) => {
               </div>
             </div>
           )}
-
           {activeTab === 'seo' && (
             <div className="admin-full-content seo-form">
               <h2>Configuración SEO</h2>

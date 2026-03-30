@@ -5,7 +5,6 @@ const NewsFeed = ({ news }) => {
     <div className="news-container">
       {news.map((item) => (
         <article key={item.id} className="news-item">
-          {/* Usamos Link de react-router-dom para ir al detalle */}
           <Link to={`/noticia/${item.id}`} className="news-link">
             <img src={item.imageUrl} alt={item.title} />
             <div className="news-info">
