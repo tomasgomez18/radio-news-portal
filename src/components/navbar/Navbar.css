@@ -15,6 +15,7 @@
   top: 0;
   z-index: 1000;
   overflow: visible; 
+  margin-top: 0 !important; 
 }
 .navbar-logo-container {
   display: flex;
