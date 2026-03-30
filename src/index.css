@@ -2,7 +2,13 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Evita que el padding agrande los elementos */
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Evita el scroll horizontal molesto */
+  background-color: #000; /* Asegurate de que el fondo sea negro total */
 }
 
 :root {
@@ -11,11 +17,6 @@
   color: white;
 }
 
-body {
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
 
 /* Quitamos las limitaciones que pone Vite al #root */
 #root {
