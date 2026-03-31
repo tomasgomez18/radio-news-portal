@@ -12,7 +12,12 @@ function App() {
   const [showAdmin, setShowAdmin] = useState(false);
   const [news, setNews] = useState([]);
   const [ads, setAds] = useState([]);
-
+  const handleDataUpdate = () => {
+    const storedAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
+    const storedNews = JSON.parse(localStorage.getItem('radio_news')) || [];
+    setAds(storedAds);
+    setNews(storedNews);
+  };
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.shiftKey && e.altKey && e.key === 'A') {
@@ -20,25 +25,19 @@ function App() {
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-
-    const storedAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
-    const storedNews = JSON.parse(localStorage.getItem('radio_news')) || [];
-    setAds(storedAds);
-    setNews(storedNews);
-
+    handleDataUpdate();
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
   return (
     <Router>
       <Navbar /> 
       <Routes>
         <Route path="/" element={<Home news={news} ads={ads} />} />
-        <Route path="/noticia/:id" element={<NewsDetail />} />
+        <Route path="/noticia/:id" element={<NewsDetail news={news} />} />
         <Route path="/categoria/:categoryName" element={<Categories news={news} />} />
         <Route path="/contacto" element={<Contact />} />
       </Routes>
-      {showAdmin && <AdminOverlay onClose={() => setShowAdmin(false)} />}
+      {showAdmin && <AdminOverlay news={news} ads={ads} onClose={() => setShowAdmin(false)} onDataUpdate={handleDataUpdate} />}
         <Footer />
     </Router>
   );
