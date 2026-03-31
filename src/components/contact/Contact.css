@@ -1,0 +1,148 @@
+.contact-page {
+  background: #000;
+  min-height: 100vh;
+  padding: 80px 0;
+  color: #fff;
+}
+
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 6%;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.contact-header h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.contact-header .red-line {
+  width: 80px;
+  height: 4px;
+  background: #ff0000;
+  margin: 0 auto 20px;
+}
+
+.contact-header p {
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.info-item h3 {
+  color: #ff0000;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.info-item p {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.social-links-contact {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #333;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.social-icon:hover {
+  background: #ff0000;
+  border-color: #ff0000;
+}
+
+/* FORMULARIO */
+.contact-form {
+  background: #0a0a0a;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #1a1a1a;
+}
+
+.contact-form .form-group {
+  margin-bottom: 25px;
+}
+
+.contact-form label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #ff0000;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+  border-color: #ff0000;
+}
+
+.contact-submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.contact-submit-btn:hover {
+  background: #cc0000;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
