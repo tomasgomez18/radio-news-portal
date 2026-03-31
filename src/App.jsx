@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import { Home } from './Home';
-import { NewsDetail } from './pages/NewsDetaill'; // Creá esta página
+import { NewsDetail } from './pages/NewsDetaill';
 import AdminOverlay from './components/adminPanel/AdminOverlay';
 
 function App() {
@@ -10,7 +10,6 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Shift + Alt + A abre el panel
       if (e.shiftKey && e.altKey && e.key === 'A') {
         setShowAdmin((prev) => !prev);
       }
