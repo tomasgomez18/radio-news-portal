@@ -34,7 +34,7 @@ export const Navbar = () => {
           )}
         </li>
 
-        <li><a href="#publicidad">PUBLICIDAD</a></li>
+        <li><a href="#publicidad">CONTACTO</a></li>
       </ul>
 
       <div className="nav-actions">
