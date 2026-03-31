@@ -1,46 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import './AdminOverlay.css';
 
-const AdminOverlay = ({ onClose }) => {
+const AdminOverlay = ({ news, ads, onClose, onDataUpdate }) => {
   const [activeTab, setActiveTab] = useState('news');
-  const [newsList, setNewsList] = useState([]);
-  const [adsList, setAdsList] = useState([]);
 
   const [newsForm, setNewsForm] = useState({ id: null, title: '', category: 'Actualidad', imageUrl: '', fullBody: '' });
-  const [adForm, setAdForm] = useState({ id: null, imageUrl: '', link: '' });
+  const [adForm, setAdForm] = useState({ id: null, title: '', imageUrl: '', link: '' });
   const [seoForm, setSeoForm] = useState({ siteTitle: '', metaDescription: '', keywords: '' });
 
   useEffect(() => {
-    const storedNews = JSON.parse(localStorage.getItem('radio_news')) || [];
-    const storedAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
     const storedSEO = JSON.parse(localStorage.getItem('radio_seo')) || { siteTitle: '', metaDescription: '', keywords: '' };
-    setNewsList(storedNews);
-    setAdsList(storedAds);
     setSeoForm(storedSEO);
   }, []);
 
   const handleSaveNews = () => {
     if (!newsForm.title || !newsForm.imageUrl || !newsForm.fullBody) return alert("Faltan campos.");
+    const currentNews = JSON.parse(localStorage.getItem('radio_news')) || [];
     const updated = newsForm.id 
-      ? newsList.map(n => n.id === newsForm.id ? { ...newsForm, date: n.date } : n)
-      : [{ ...newsForm, id: Date.now(), date: new Date().toLocaleDateString() }, ...newsList];
+      ? currentNews.map(n => n.id === newsForm.id ? { ...newsForm, date: n.date } : n)
+      : [{ ...newsForm, id: Date.now(), date: new Date().toLocaleDateString() }, ...currentNews];
     localStorage.setItem('radio_news', JSON.stringify(updated));
-    window.location.reload();
+    onDataUpdate();
+    setNewsForm({ id: null, title: '', category: 'Actualidad', imageUrl: '', fullBody: '' }); // Limpiar formulario
   };
 
   const handleSaveAd = () => {
-    if (!adForm.imageUrl) return alert("Falta imagen.");
+    if (!adForm.imageUrl) return alert("Falta la URL de la imagen.");
+    const currentAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
     const updated = adForm.id 
-      ? adsList.map(a => a.id === adForm.id ? adForm : a)
-      : [{ ...adForm, id: Date.now() }, ...adsList];
+      ? currentAds.map(a => a.id === adForm.id ? adForm : a)
+      : [{ ...adForm, id: Date.now() }, ...currentAds];
     localStorage.setItem('radio_ads', JSON.stringify(updated));
-    window.location.reload();
+    onDataUpdate();
+    setAdForm({ id: null, title: '', imageUrl: '', link: '' }); 
   };
 
   const handleSaveSEO = () => {
     localStorage.setItem('radio_seo', JSON.stringify(seoForm));
     document.title = seoForm.siteTitle || "AudioWave";
     alert("SEO actualizado.");
+  };
+
+  const handleDeleteNews = (id) => {
+    const currentNews = JSON.parse(localStorage.getItem('radio_news')) || [];
+    const filtered = currentNews.filter(x => x.id !== id);
+    localStorage.setItem('radio_news', JSON.stringify(filtered));
+    onDataUpdate();
+  };
+
+  const handleDeleteAd = (id) => {
+    const currentAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
+    const filtered = currentAds.filter(x => x.id !== id);
+    localStorage.setItem('radio_ads', JSON.stringify(filtered));
+    onDataUpdate();
   };
 
   return (
@@ -77,16 +89,12 @@ const AdminOverlay = ({ onClose }) => {
               <section className="admin-list-side">
                 <h3>Historial</h3>
                 <div className="admin-scroll-list">
-                  {newsList.map(n => (
+                  {news.map(n => (
                     <div key={n.id} className="admin-item">
                       <span>{n.title}</span>
                       <div className="item-btns">
                         <button onClick={() => setNewsForm(n)}>Edit</button>
-                        <button className="del" onClick={() => {
-                          const f = newsList.filter(x => x.id !== n.id);
-                          localStorage.setItem('radio_news', JSON.stringify(f));
-                          setNewsList(f);
-                        }}>X</button>
+                        <button className="del" onClick={() => handleDeleteNews(n.id)}>X</button>
                       </div>
                     </div>
                   ))}
@@ -98,6 +106,7 @@ const AdminOverlay = ({ onClose }) => {
             <div className="admin-grid">
               <section className="admin-form-side">
                 <h2>Banners</h2>
+                <div className="form-group"><label>Título (opcional)</label><input type="text" value={adForm.title} onChange={e => setAdForm({...adForm, title: e.target.value})} /></div>
                 <div className="form-group"><label>URL Imagen</label><input type="text" value={adForm.imageUrl} onChange={e => setAdForm({...adForm, imageUrl: e.target.value})} /></div>
                 <div className="form-group"><label>Link</label><input type="text" value={adForm.link} onChange={e => setAdForm({...adForm, link: e.target.value})} /></div>
                 <button className="primary-btn" onClick={handleSaveAd}>Guardar</button>
@@ -105,16 +114,12 @@ const AdminOverlay = ({ onClose }) => {
               <section className="admin-list-side">
                 <h3>Activos</h3>
                 <div className="ads-preview-grid">
-                  {adsList.map(a => (
+                  {ads.map(a => (
                     <div key={a.id} className="ad-mini-card">
                       <img src={a.imageUrl} alt="" />
                       <div className="ad-card-btns">
                         <button onClick={() => setAdForm(a)}>Edit</button>
-                        <button className="del" onClick={() => {
-                           const f = adsList.filter(x => x.id !== a.id);
-                           localStorage.setItem('radio_ads', JSON.stringify(f));
-                           setAdsList(f);
-                        }}>X</button>
+                        <button className="del" onClick={() => handleDeleteAd(a.id)}>X</button>
                       </div>
                     </div>
                   ))}
