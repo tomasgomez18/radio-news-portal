@@ -1,12 +1,52 @@
 import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import NewsFeed from '../newsFeed/NewsFeed';
 import './Categories.css';
 
 const Categories = ({ news }) => {
+  const { categoryName } = useParams();
   const [searchTerm, setSearchTerm] = useState('');
-  const categoriesList = ["Actualidad", "Deportes", "Música", "Tecnología"];
 
-  const filteredNews = news.filter(article => 
+  if (categoryName) {
+    const filteredCategoryNews = news.filter(article =>
+      article.category === categoryName && article.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+      <div className="categories-wrapper">
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder={`Buscar en ${categoryName}...`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="home-content">
+          <section className="category-group" id={categoryName.toLowerCase()}>
+            <div className="category-header">
+              <h2>{categoryName}</h2>
+              <div className="red-line"></div>
+              <Link to="/" className="view-all">← Volver al inicio</Link>
+            </div>
+            <NewsFeed news={filteredCategoryNews} />
+            {filteredCategoryNews.length === 0 && (
+              <p className="no-results-msg">
+                {searchTerm
+                  ? `No se encontraron noticias para "${searchTerm}" en ${categoryName}.`
+                  : `No hay noticias en la categoría "${categoryName}".`
+                }
+              </p>
+            )}
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+  const categoriesList = ["Actualidad", "Deportes", "Música", "Tecnología"];
+  const filteredNews = news.filter(article =>
     article.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -33,7 +73,7 @@ const Categories = ({ news }) => {
               <div className="category-header">
                 <h2>{cat}</h2>
                 <div className="red-line"></div>
-                <button className="view-all">Ver todo</button>
+                <Link to={`/categoria/${cat}`} className="view-all">Ver todo</Link>
               </div>
               <NewsFeed news={categoryNews} />
             </section>
