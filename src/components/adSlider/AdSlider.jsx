@@ -1,18 +1,16 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import './AdSlider.css'
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
 const AdSlider = ({ ads = [] }) => {
   if (ads.length === 0) return null;
-
   return (
     <section className="ad-slider-container">
       <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination]}
         spaceBetween={15}
         slidesPerView={1}
         loop={true}
@@ -25,9 +23,10 @@ const AdSlider = ({ ads = [] }) => {
       >
         {ads.map((ad) => (
           <SwiperSlide key={ad.id}>
-            <a href={ad.link} target="_blank" rel="noopener noreferrer">
+            <a href={ad.link} target="_blank" rel="noopener noreferrer" className="ad-link-wrapper">
               <div className="ad-card">
-                <img src={ad.imageUrl} alt={ad.title} className="ad-image" />
+                <img src={ad.imageUrl} alt={ad.title || 'Publicidad'} className="ad-image" />
+                <div className="ad-overlay"></div>
                 {ad.title && <span className="ad-tagline">{ad.title}</span>}
               </div>
             </a>
