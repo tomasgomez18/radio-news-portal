@@ -15,8 +15,6 @@ export const Navbar = () => {
 
       <ul className="nav-links">
         <li><a href="/">INICIO</a></li>
-        
-        {/* Dropdown de Categorías */}
         <li 
           className="dropdown" 
           onMouseEnter={() => setIsDropdownOpen(true)} 
