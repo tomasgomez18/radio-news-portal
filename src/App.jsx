@@ -3,10 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import { Home } from './Home';
 import { NewsDetail } from './pages/NewsDetaill';
+import  Categories  from './components/categories/Categories';
+import { Contact } from './components/contact/Contact';
 import AdminOverlay from './components/adminPanel/AdminOverlay';
+import { Footer }from './components/footer/Footer';
 
 function App() {
   const [showAdmin, setShowAdmin] = useState(false);
+  const [news, setNews] = useState([]);
+  const [ads, setAds] = useState([]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -15,6 +20,12 @@ function App() {
       }
     };
     window.addEventListener('keydown', handleKeyDown);
+
+    const storedAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
+    const storedNews = JSON.parse(localStorage.getItem('radio_news')) || [];
+    setAds(storedAds);
+    setNews(storedNews);
+
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
@@ -22,10 +33,13 @@ function App() {
     <Router>
       <Navbar /> 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home news={news} ads={ads} />} />
         <Route path="/noticia/:id" element={<NewsDetail />} />
+        <Route path="/categoria/:categoryName" element={<Categories news={news} />} />
+        <Route path="/contacto" element={<Contact />} />
       </Routes>
       {showAdmin && <AdminOverlay onClose={() => setShowAdmin(false)} />}
+        <Footer />
     </Router>
   );
 }
