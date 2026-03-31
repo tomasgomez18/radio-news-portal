@@ -5,21 +5,17 @@ const AdminOverlay = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState('news');
   const [newsList, setNewsList] = useState([]);
   const [adsList, setAdsList] = useState([]);
-  const [mediaList, setMediaList] = useState([]);
 
   const [newsForm, setNewsForm] = useState({ id: null, title: '', category: 'Actualidad', imageUrl: '', fullBody: '' });
   const [adForm, setAdForm] = useState({ id: null, imageUrl: '', link: '' });
   const [seoForm, setSeoForm] = useState({ siteTitle: '', metaDescription: '', keywords: '' });
-  const [imageInput, setImageInput] = useState('');
 
   useEffect(() => {
     const storedNews = JSON.parse(localStorage.getItem('radio_news')) || [];
     const storedAds = JSON.parse(localStorage.getItem('radio_ads')) || [];
-    const storedMedia = JSON.parse(localStorage.getItem('radio_media')) || [];
     const storedSEO = JSON.parse(localStorage.getItem('radio_seo')) || { siteTitle: '', metaDescription: '', keywords: '' };
     setNewsList(storedNews);
     setAdsList(storedAds);
-    setMediaList(storedMedia);
     setSeoForm(storedSEO);
   }, []);
 
@@ -47,14 +43,6 @@ const AdminOverlay = ({ onClose }) => {
     alert("SEO actualizado.");
   };
 
-  const handleAddImage = () => {
-    if (!imageInput) return;
-    const updated = [imageInput, ...mediaList];
-    localStorage.setItem('radio_media', JSON.stringify(updated));
-    setMediaList(updated);
-    setImageInput('');
-  };
-
   return (
     <div className="admin-overlay-backdrop">
       <div className="admin-dashboard">
@@ -63,7 +51,6 @@ const AdminOverlay = ({ onClose }) => {
           <nav>
             <button className={activeTab === 'news' ? 'active' : ''} onClick={() => setActiveTab('news')}>Noticias</button>
             <button className={activeTab === 'ads' ? 'active' : ''} onClick={() => setActiveTab('ads')}>Publicidad</button>
-            <button className={activeTab === 'images' ? 'active' : ''} onClick={() => setActiveTab('images')}>Imágenes</button>
             <button className={activeTab === 'seo' ? 'active' : ''} onClick={() => setActiveTab('seo')}>SEO</button>
           </nav>
           <button className="exit-btn" onClick={onClose}>Salir</button>
@@ -135,35 +122,11 @@ const AdminOverlay = ({ onClose }) => {
               </section>
             </div>
           )}
-          {activeTab === 'images' && (
-            <div className="admin-full-content">
-              <h2>Biblioteca</h2>
-              <div className="form-row">
-                <input type="text" value={imageInput} placeholder="URL..." onChange={e => setImageInput(e.target.value)} />
-                <button className="primary-btn-sm" onClick={handleAddImage}>OK</button>
-              </div>
-              <div className="media-grid">
-                {mediaList.map((img, i) => (
-                  <div key={i} className="media-box">
-                    <img src={img} alt="" />
-                    <div className="media-overlay-btns">
-                      <button onClick={() => {navigator.clipboard.writeText(img); alert("URL Copiada")}}>Copiar</button>
-                      <button className="del-btn" onClick={() => {
-                        const f = mediaList.filter((_, idx) => idx !== i);
-                        localStorage.setItem('radio_media', JSON.stringify(f));
-                        setMediaList(f);
-                      }}>Borrar</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           {activeTab === 'seo' && (
-            <div className="admin-full-content">
+            <div className="admin-full-content seo-form">
               <h2>SEO</h2>
               <div className="form-group"><label>Título</label><input type="text" value={seoForm.siteTitle} onChange={e => setSeoForm({...seoForm, siteTitle: e.target.value})} /></div>
-              <div className="form-group"><label>Meta</label><textarea value={seoForm.metaDescription} onChange={e => setSeoForm({...seoForm, metaDescription: e.target.value})}></textarea></div>
+              <div className="form-group"><label>Meta</label><textarea rows="4" value={seoForm.metaDescription} onChange={e => setSeoForm({...seoForm, metaDescription: e.target.value})}></textarea></div>
               <button className="primary-btn" onClick={handleSaveSEO}>Guardar</button>
             </div>
           )}
