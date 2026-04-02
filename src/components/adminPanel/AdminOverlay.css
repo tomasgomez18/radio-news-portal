@@ -1,45 +1,45 @@
 .admin-overlay-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.9); /* Un fondo oscuro simple es más eficiente */
   z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); // Esta propiedad es muy costosa para el rendimiento */
   font-family: 'Inter', sans-serif;
-  color: #fff;
+  color: #212529;
 }
 .admin-dashboard {
   width: 95%;
   max-width: 1200px;
   height: 85vh;
-  background: #111;
+  background: #ffffff;
   display: flex;
   border-radius: 12px;
-  border: 1px solid #222;
+  border: 1px solid #dee2e6;
   overflow: hidden;
 }
 .admin-sidebar {
   width: 250px;
-  background: #0a0a0a;
+  background: #f8f9fa;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #222;
+  border-right: 1px solid #dee2e6;
 }
-.admin-logo h3 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+.admin-logo h3 { margin: 0; text-transform: uppercase; letter-spacing: 2px; color: #000; }
 .admin-logo h3 span { color: #ff0000; }
 .admin-sidebar nav { display: flex; flex-direction: column; gap: 10px; flex-grow: 1; margin-top: 40px; }
 .admin-sidebar button {
-  background: transparent; border: none; color: #555; text-align: left;
+  background: transparent; border: none; color: #495057; text-align: left;
   padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: bold;
 }
 .admin-sidebar button.active, .admin-sidebar button:hover {
-  background: #1a1a1a; color: #ff0000;
+  background: #e9ecef; color: #ff0000;
 }
-.exit-btn { color: #ff4444 !important; border: 1px solid #222 !important; margin-top: auto; text-align: center !important; cursor: pointer; }
-.admin-main { flex-grow: 1; padding: 50px; overflow-y: auto; background: #111; }
+.exit-btn { color: #ff4444 !important; border: 1px solid #dee2e6 !important; margin-top: auto; text-align: center !important; cursor: pointer; }
+.admin-main { flex-grow: 1; padding: 50px; overflow-y: auto; background: #ffffff; }
 .admin-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start; }
 .admin-form-side h2, .admin-full-content h2 { border-left: 4px solid #ff0000; padding-left: 15px; margin-bottom: 30px; }
 .form-group { margin-bottom: 20px; }
@@ -47,9 +47,9 @@
 .admin-main input, .admin-main textarea, .admin-main select {
   width: 100%;
   padding: 14px 18px;
-  background: #1a1a1a; 
-  border: 1px solid #333;
-  color: #fff;
+  background: #f1f3f5; 
+  border: 1px solid #dee2e6;
+  color: #212529;
   border-radius: 6px;
   outline: none;
   font-size: 1rem;
@@ -57,20 +57,20 @@
 .admin-main input:focus, .admin-main textarea:focus { border-color: #ff0000; box-shadow: 0 0 8px rgba(255, 0, 0, 0.2); }
 .primary-btn { background: #ff0000; color: #fff; padding: 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; transition: 0.3s; }
 .primary-btn:hover { background: #cc0000; }
-.admin-scroll-list { height: 50vh; overflow-y: auto; border: 1px solid #222; border-radius: 8px; padding: 10px; }
-.admin-item { background: #0a0a0a; padding: 15px; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
-.admin-item span { font-size: 0.9rem; color: #ccc; }
+.admin-scroll-list { height: 50vh; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 8px; padding: 10px; }
+.admin-item { background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e9ecef; }
+.admin-item span { font-size: 0.9rem; color: #495057; }
 .item-btns { display: flex; gap: 8px; }
-.item-btns button { background: #222; border: none; color: #fff; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
-.item-btns button:hover { background: #333; }
+.item-btns button { background: #e9ecef; border: none; color: #495057; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
+.item-btns button:hover { background: #dee2e6; }
 .item-btns button.del { color: #ff4444; }
-.item-btns button.del:hover { background: #422; }
+.item-btns button.del:hover { background: #f8d7da; }
 .ads-preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
-.ad-mini-card { background: #161616; padding: 12px; border-radius: 8px; border: 1px solid #222; }
-.ad-mini-card img { width: 100%; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid #333; }
+.ad-mini-card { background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px solid #e9ecef; }
+.ad-mini-card img { width: 100%; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid #dee2e6; }
 .ad-card-btns { display: flex; gap: 8px; margin-top: 12px; }
-.ad-card-btns button { flex: 1; padding: 8px; font-size: 0.7rem; background: #222; color: #fff; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.2s; }
-.ad-card-btns button:hover { background: #333; }
+.ad-card-btns button { flex: 1; padding: 8px; font-size: 0.7rem; background: #e9ecef; color: #495057; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.2s; }
+.ad-card-btns button:hover { background: #dee2e6; }
 .ad-card-btns button.del { color: #ff4444; }
-.ad-card-btns button.del:hover { background: #422; }
+.ad-card-btns button.del:hover { background: #f8d7da; }
 .seo-form { max-width: 600px; }

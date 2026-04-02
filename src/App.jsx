@@ -7,6 +7,7 @@ import  Categories  from './components/categories/Categories';
 import { Contact } from './components/contact/Contact';
 import AdminOverlay from './components/adminPanel/AdminOverlay';
 import { Footer }from './components/footer/Footer';
+import WhatsAppButton from './components/contact/botonWSP/WhatsAppButton';
 
 function App() {
   const [showAdmin, setShowAdmin] = useState(false);
@@ -38,7 +39,8 @@ function App() {
         <Route path="/contacto" element={<Contact />} />
       </Routes>
       {showAdmin && <AdminOverlay news={news} ads={ads} onClose={() => setShowAdmin(false)} onDataUpdate={handleDataUpdate} />}
-        <Footer />
+      <WhatsAppButton />
+      <Footer />
     </Router>
   );
 }
