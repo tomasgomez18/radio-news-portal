@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import NewsFeed from '../newsFeed/NewsFeed';
 import './Categories.css';
@@ -8,9 +8,11 @@ const Categories = ({ news }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   if (categoryName) {
-    const filteredCategoryNews = news.filter(article =>
-      article.category === categoryName && article.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredCategoryNews = useMemo(() => {
+      return news.filter(article =>
+        article.category === categoryName && article.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }, [news, categoryName, searchTerm]);
 
     return (
       <div className="categories-wrapper">
@@ -46,9 +48,11 @@ const Categories = ({ news }) => {
   }
 
   const categoriesList = ["Actualidad", "Deportes", "Música", "Tecnología"];
-  const filteredNews = news.filter(article =>
-    article.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredNews = useMemo(() => {
+    return news.filter(article =>
+      article.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [news, searchTerm]);
 
   return (
     <div className="categories-wrapper">

@@ -1,6 +1,6 @@
 .news-detail-article {
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #212529;
   padding: 40px 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -41,7 +41,7 @@
 }
 
 .news-detail-date {
-  color: #888;
+  color: #6c757d;
 }
 
 .news-detail-image {
@@ -54,11 +54,11 @@
   line-height: 1.8;
   font-size: 1.2rem;
   white-space: pre-wrap;
-  color: #e0e0e0;
+  color: #343a40;
 }
 
 .news-not-found {
-  color: white;
+  color: #212529;
   text-align: center;
   padding: 50px;
   font-size: 1.2rem;

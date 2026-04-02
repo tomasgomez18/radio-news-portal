@@ -19,7 +19,7 @@ export const NewsDetail = ({ news }) => {
         <h1 className="news-detail-title">{article.title}</h1>
         <p className="news-detail-date">{article.date}</p>
       </header>
-      <img src={article.imageUrl} alt={article.title} className="news-detail-image" />
+      <img src={article.imageUrl} alt={article.title} className="news-detail-image" loading="lazy" />
       <div className="news-detail-body">
         {article.fullBody}
       </div>

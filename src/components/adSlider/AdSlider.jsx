@@ -25,7 +25,7 @@ const AdSlider = ({ ads = [] }) => {
           <SwiperSlide key={ad.id}>
             <a href={ad.link} target="_blank" rel="noopener noreferrer" className="ad-link-wrapper">
               <div className="ad-card">
-                <img src={ad.imageUrl} alt={ad.title || 'Publicidad'} className="ad-image" />
+                <img src={ad.imageUrl} alt={ad.title || 'Publicidad'} className="ad-image" loading="lazy" />
                 <div className="ad-overlay"></div>
                 {ad.title && <span className="ad-tagline">{ad.title}</span>}
               </div>
